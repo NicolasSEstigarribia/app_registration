@@ -1,10 +1,22 @@
 import 'package:app_registration/consts/app_color.dart';
 import 'package:app_registration/view/widgets/barrel_widgets.dart';
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  static const BorderRadius _borderRadius = BorderRadius.only(
+    topLeft: Radius.circular(12),
+    topRight: Radius.circular(12),
+  );
+
+  void onTapCreateAccount() {
+    debugPrint('Sign In');
+  }
+
+  void onTapEnter() {
+    debugPrint('Sign In');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,45 +33,41 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Spacer(),
             const AppLogo(),
-            // Botón Crear Cuenta
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Acción para Crear Cuenta
-                },
-                child: const Text(
-                  'CREAR CUENTA',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
+            const Spacer(),
+            buildBottomContainer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBottomContainer() {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: _borderRadius,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        child: Column(
+          children: [
+            AppButton(
+              type: AppButtonType.secondary,
+              title: 'CREAR CUENTA',
+              onTap: onTapCreateAccount,
             ),
-            const SizedBox(height: 15),
-            // Botón Ingresar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Acción para Ingresar
-                },
-                child: const Text(
-                  'INGRESAR',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-              ),
+            AppSpacer.small,
+            AppButton(
+              type: AppButtonType.primary,
+              title: 'INGRESAR',
+              onTap: onTapEnter,
             ),
-            const SizedBox(height: 20),
-            // Términos y Condiciones
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Text(
-                'Al continuar, aceptas los Términos y Condiciones',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white.withOpacity(0.8)),
-              ),
-            ),
+            AppSpacer.medium,
+            const TermsAndConditionsText(),
           ],
         ),
       ),

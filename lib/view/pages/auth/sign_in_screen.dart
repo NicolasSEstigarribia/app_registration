@@ -1,7 +1,6 @@
 import 'package:app_registration/view/widgets/barrel_widgets.dart';
 import 'package:flutter/material.dart';
 
-
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
@@ -20,7 +19,7 @@ class SignInScreen extends StatelessWidget {
             const Spacer(),
             AppButton(
               title: 'Loguearse',
-              onPressed: () {
+              onTap: () {
                 debugPrint('Sign In asdasdas');
               },
             ),

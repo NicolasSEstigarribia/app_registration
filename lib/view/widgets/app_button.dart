@@ -1,38 +1,87 @@
+import 'package:app_registration/consts/app_color.dart';
 import 'package:flutter/material.dart';
 
-class AppButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String title;
-  final Widget ? content;
-  final double ? height;
-  final double ? width;
-
+class AppButton extends StatefulWidget {
   const AppButton({
-    required this.onPressed,
-    this.title = '',
-    this.height,
-    this.width,
-    this.content,
-    super.key
+    super.key,
+    required this.title,
+    this.tintColor = AppColors.primary,
+    this.type = AppButtonType.primary,
+    this.onTap,
   });
+
+  final String title;
+  final Color tintColor;
+  final AppButtonType type;
+
+  final void Function()? onTap;
+
+  @override
+  State<AppButton> createState() => _AppButtonState();
+}
+
+class _AppButtonState extends State<AppButton> {
+  double minWidth = 0;
+
+  GlobalKey key = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  BoxDecoration getButtonDecoration() {
+    switch (widget.type) {
+      case AppButtonType.primary:
+        return BoxDecoration(
+          color: widget.tintColor,
+          borderRadius: BorderRadius.circular(8),
+        );
+      case AppButtonType.secondary:
+        return BoxDecoration(
+          color: AppColors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: widget.tintColor,
+            width: 2,
+          ),
+        );
+    }
+  }
+
+  Widget renderButtonContent() {
+    return Text(
+      widget.title,
+      maxLines: 1,
+      textAlign: TextAlign.center,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: (widget.type == AppButtonType.primary)
+            ? AppColors.white
+            : AppColors.primary,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(
-          width ?? MediaQuery.of(context).size.width,
-          height ?? 50
+    return GestureDetector(
+      key: key,
+      onTap: widget.onTap,
+      child: Container(
+        decoration: getButtonDecoration(),
+        padding: (const EdgeInsets.symmetric(vertical: 11)),
+        child: Center(
+          child: renderButtonContent(),
         ),
       ),
-      child: content ?? Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w400
-        ),
-      )
     );
   }
+}
+
+enum AppButtonType {
+  primary,
+  secondary,
 }
