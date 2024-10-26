@@ -6,7 +6,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
         child: Column(
