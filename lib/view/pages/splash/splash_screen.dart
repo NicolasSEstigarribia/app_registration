@@ -1,7 +1,6 @@
 import 'package:app_registration/consts/app_color.dart';
 import 'package:app_registration/controllers/splash_bloc/splash_bloc.dart';
-import 'package:app_registration/view/pages/auth/sign_in_screen.dart';
-import 'package:app_registration/view/pages/home/home_screen.dart';
+import 'package:app_registration/utils/app_router.dart';
 import 'package:app_registration/view/widgets/barrel_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,16 +24,10 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocConsumer<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is HomeState) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          );
+          Navigator.of(context).pushNamed(AppRouter.homeScreen);
         }
         if (state is UnAuthenticatedState) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const SignInScreen()),
-          );
+          Navigator.of(context).pushNamed(AppRouter.signInScreen);
         }
       },
       builder: (context, state) {
